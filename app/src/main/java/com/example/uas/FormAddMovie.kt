@@ -31,6 +31,7 @@ class FormAddMovie : AppCompatActivity() {
     private val firebase = FirebaseFirestore.getInstance()
     private val movieadminCollectionRef = firebase.collection("movieadmin")
 
+
     private var updateId = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,15 +64,16 @@ class FormAddMovie : AppCompatActivity() {
                     val judul = txtTitle.text.toString()
                     val genre = txtKategori.text.toString()
                     val desc = txtDes.text.toString()
+                    val url = uploadImage()
                     val newMovie = Movie(
                         judul = judul,
                         genre = genre,
-                        desc = desc
+                        desc = desc,
+                        url = url
                     )
                     addData(newMovie)
                     resetForm()
                     setResultAndFinish()
-                    uploadImage()
                 } else {
                     Toast.makeText(
                         applicationContext,
@@ -95,6 +97,7 @@ class FormAddMovie : AppCompatActivity() {
 
         if (requestCode == 100 && resultCode == RESULT_OK) {
             ImageUri = data?.data!!
+            Log.d("FormActivity", "Error updating data imageeeee: "+ data?.data!!)
             binding.uploadimg.setImageURI(ImageUri)
         }
     }
@@ -110,7 +113,7 @@ class FormAddMovie : AppCompatActivity() {
                     }
                 resetForm()
                 setResultAndFinish()
-                uploadImage()
+
             }
             .addOnFailureListener {
                 Log.d("FormActivity", "Error adding data: ", it)
@@ -135,7 +138,7 @@ class FormAddMovie : AppCompatActivity() {
             }
     }
 
-    private fun uploadImage() {
+    private fun uploadImage():String {
         val progressDialog = ProgressDialog(this)
         progressDialog.setMessage("Uploading File..")
         progressDialog.setCancelable(false)
@@ -144,7 +147,9 @@ class FormAddMovie : AppCompatActivity() {
         val formatter = SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.getDefault())
         val now = Date()
         val fileName = formatter.format(now)
-        val storageReference = FirebaseStorage.getInstance().getReference("images/$fileName")
+        val storageReference = FirebaseStorage.getInstance().getReference("$fileName"+".jpg")
+        Log.d("isfdvvdhsjhsbddjsbjsb","storage reference "+storageReference.bucket)
+
 
         storageReference.putFile(ImageUri)
             .addOnSuccessListener {
@@ -157,6 +162,7 @@ class FormAddMovie : AppCompatActivity() {
                 if (progressDialog.isShowing)
                     Toast.makeText(this@FormAddMovie, "Error updating img:"+it, Toast.LENGTH_SHORT).show()
             }
+        return storageReference.path
     }
 
     private fun setResultAndFinish() {
