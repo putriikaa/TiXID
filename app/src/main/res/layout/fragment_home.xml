@@ -1,0 +1,526 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Home">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/hello"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppin"
+                android:text="Hello,"
+                android:layout_marginTop="40dp"
+                android:layout_marginLeft="20dp"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/your_usn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:fontFamily="@font/poppin"
+                android:layout_marginTop="2dp"
+                android:text="Username"
+                android:textColor="@color/blue"
+                android:layout_below="@+id/hello"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/top_movie"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:fontFamily="@font/poppin"
+                android:layout_marginTop="50dp"
+                android:text="Top Movie"
+                android:textColor="@color/black"
+                android:layout_below="@+id/hello"
+                android:textSize="16sp" />
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/your_usn"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="50dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="30dp"
+                android:columnCount="2"
+                android:columnOrderPreserved="false"
+                android:rowCount="3">
+
+                <!-- Your CardViews -->
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/your_usn"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="30dp"
+                    android:columnCount="2"
+                    android:columnOrderPreserved="false"
+                    android:rowCount="3">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardview1"
+                        android:layout_width="180dp"
+                        android:layout_height="250dp"
+                        android:layout_rowWeight="1"
+                        android:layout_margin="10dp"
+                        app:cardCornerRadius="10dp"
+                        app:cardElevation="5dp"
+                        android:clickable="true"
+                        android:tag="0"
+                        android:onClick="openMovieDetails">
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:padding="5dp">
+                            <ImageView
+                                android:id="@+id/film1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="170dp"
+                                android:src="@drawable/film1"/>
+                            <TextView
+                                android:id="@+id/judul1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:text="Petualangan Sherina 2"
+                                android:fontFamily="@font/poppin"
+                                android:textSize="12sp"
+                                android:layout_below="@+id/film1"/>
+
+                            <LinearLayout
+                                android:layout_width="350dp"
+                                android:layout_height="50dp"
+                                android:orientation="horizontal"
+                                android:layout_marginTop="5dp"
+                                android:layout_below="@+id/judul1">
+
+                                <ImageView
+                                    android:id="@+id/star1"
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:src="@drawable/baseline_star_24" />
+
+                                <ImageView
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:src="@drawable/baseline_star_24" />
+
+                                <ImageView
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:src="@drawable/baseline_star_24" />
+
+                                <ImageView
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:src="@drawable/baseline_star_24" />
+
+                                <TextView
+                                    android:layout_width="50dp"
+                                    android:layout_height="30dp"
+                                    android:layout_marginStart="5dp"
+                                    android:background="@drawable/shaperating"
+                                    android:backgroundTint="#011B38"
+                                    android:text="4.5"
+                                    android:textColor="@color/white"
+                                    android:textSize="10sp"
+                                    android:textAlignment="center" />
+                            </LinearLayout>
+                        </RelativeLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="180dp"
+                        android:layout_height="250dp"
+                        android:layout_rowWeight="1"
+                        android:layout_margin="10dp"
+                        android:layout_marginLeft="10dp"
+                        app:cardCornerRadius="10dp"
+                        android:tag="1"
+                        android:onClick="openMovieDetails"
+                        app:cardElevation="5dp">
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:padding="5dp">
+
+                            <ImageView
+                                android:id="@+id/film2"
+                                android:layout_width="match_parent"
+                                android:layout_height="170dp"
+                                android:src="@drawable/mermaid" />
+                            <TextView
+                                android:id="@+id/judul2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="The Little Mermaid"
+                                android:paddingTop="5dp"
+                                android:fontFamily="@font/poppin"
+                                android:textSize="12sp"
+                                android:layout_below="@+id/film2"/>
+
+                            <LinearLayout
+                                android:layout_width="350dp"
+                                android:layout_height="50dp"
+                                android:orientation="horizontal"
+                                android:layout_marginTop="5dp"
+                                android:layout_below="@+id/judul2">
+
+                                <ImageView
+                                    android:id="@+id/star2"
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:src="@drawable/baseline_star_24" />
+
+                                <ImageView
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:src="@drawable/baseline_star_24" />
+
+                                <ImageView
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:src="@drawable/baseline_star_24" />
+
+                                <ImageView
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:src="@drawable/baseline_star_24" />
+
+                                <TextView
+                                    android:layout_width="55dp"
+                                    android:layout_height="31dp"
+                                    android:layout_marginStart="5dp"
+                                    android:background="@drawable/shaperating"
+                                    android:backgroundTint="#011B38"
+                                    android:text="4.5"
+                                    android:textColor="@color/white"
+                                    android:textSize="10sp"
+                                    android:textAlignment="center" />
+                            </LinearLayout>
+                        </RelativeLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="180dp"
+                        android:layout_height="250dp"
+                        android:layout_rowWeight="1"
+                        android:layout_margin="10dp"
+                        android:layout_marginLeft="10dp"
+                        app:cardCornerRadius="10dp"
+                        android:tag="2"
+                        android:onClick="openMovieDetails"
+                        app:cardElevation="5dp">
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:padding="5dp">
+
+                            <ImageView
+                                android:id="@+id/film3"
+                                android:layout_width="match_parent"
+                                android:layout_height="170dp"
+                                android:src="@drawable/aladin" />
+
+                            <TextView
+                                android:id="@+id/judul3"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/film3"
+                                android:fontFamily="@font/poppin"
+                                android:layout_marginTop="5dp"
+                                android:text="Aladdin"
+                                android:textSize="12sp" />
+
+                            <LinearLayout
+                                android:layout_width="350dp"
+                                android:layout_height="50dp"
+                                android:orientation="horizontal"
+                                android:layout_marginTop="5dp"
+                                android:layout_below="@+id/judul3">
+
+                                <ImageView
+                                    android:id="@+id/star3"
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:src="@drawable/baseline_star_24" />
+
+                                <ImageView
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:src="@drawable/baseline_star_24" />
+
+                                <ImageView
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:src="@drawable/baseline_star_24" />
+
+                                <ImageView
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:src="@drawable/baseline_star_24" />
+
+                                <TextView
+                                    android:layout_width="55dp"
+                                    android:layout_height="31dp"
+                                    android:layout_marginStart="5dp"
+                                    android:background="@drawable/shaperating"
+                                    android:backgroundTint="#011B38"
+                                    android:text="4.5"
+                                    android:textColor="@color/white"
+                                    android:textSize="10sp"
+                                    android:textAlignment="center" />
+                            </LinearLayout>
+                        </RelativeLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="180dp"
+                        android:layout_height="250dp"
+                        android:layout_rowWeight="1"
+                        android:layout_margin="10dp"
+                        android:layout_marginLeft="10dp"
+                        app:cardCornerRadius="10dp"
+                        android:tag="3"
+                        android:onClick="openMovieDetails"
+                        app:cardElevation="5dp">
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:padding="5dp">
+
+                            <ImageView
+                                android:id="@+id/film4"
+                                android:layout_width="match_parent"
+                                android:layout_height="170dp"
+                                android:src="@drawable/moana" />
+
+                            <TextView
+                                android:id="@+id/judul4"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/film4"
+                                android:fontFamily="@font/poppin"
+                                android:layout_marginTop="5dp"
+                                android:text="Moana"
+                                android:textSize="12sp" />
+
+                            <LinearLayout
+                                android:layout_width="350dp"
+                                android:layout_height="50dp"
+                                android:orientation="horizontal"
+                                android:layout_marginTop="5dp"
+                                android:layout_below="@+id/judul4">
+
+                                <ImageView
+                                    android:id="@+id/star4"
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:src="@drawable/baseline_star_24" />
+
+                                <ImageView
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:src="@drawable/baseline_star_24" />
+
+                                <ImageView
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:src="@drawable/baseline_star_24" />
+
+                                <ImageView
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:src="@drawable/baseline_star_24" />
+
+                                <TextView
+                                    android:layout_width="55dp"
+                                    android:layout_height="31dp"
+                                    android:layout_marginStart="5dp"
+                                    android:background="@drawable/shaperating"
+                                    android:backgroundTint="#011B38"
+                                    android:text="4.5"
+                                    android:textColor="@color/white"
+                                    android:textSize="10sp"
+                                    android:textAlignment="center" />
+                            </LinearLayout>
+                        </RelativeLayout>
+                    </androidx.cardview.widget.CardView>
+
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="180dp"
+                        android:layout_height="250dp"
+                        android:layout_rowWeight="1"
+                        android:layout_margin="10dp"
+                        android:layout_marginLeft="10dp"
+                        app:cardCornerRadius="10dp"
+                        android:tag="4"
+                        android:onClick="openMovieDetails"
+                        app:cardElevation="5dp">
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:padding="5dp">
+
+                            <ImageView
+                                android:id="@+id/film5"
+                                android:layout_width="match_parent"
+                                android:layout_height="170dp"
+                                android:src="@drawable/avatar" />
+
+                            <TextView
+                                android:id="@+id/judul5"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/film5"
+                                android:fontFamily="@font/poppin"
+                                android:layout_marginTop="5dp"
+                                android:text="Avatar"
+                                android:textSize="12sp" />
+
+                            <LinearLayout
+                                android:layout_width="350dp"
+                                android:layout_height="50dp"
+                                android:orientation="horizontal"
+                                android:layout_marginTop="5dp"
+                                android:layout_below="@+id/judul5">
+
+                                <ImageView
+                                    android:id="@+id/star5"
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:src="@drawable/baseline_star_24" />
+
+                                <ImageView
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:src="@drawable/baseline_star_24" />
+
+                                <ImageView
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:src="@drawable/baseline_star_24" />
+
+                                <ImageView
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:src="@drawable/baseline_star_24" />
+
+                                <TextView
+                                    android:layout_width="55dp"
+                                    android:layout_height="31dp"
+                                    android:layout_marginStart="5dp"
+                                    android:background="@drawable/shaperating"
+                                    android:backgroundTint="#011B38"
+                                    android:text="4.5"
+                                    android:textColor="@color/white"
+                                    android:textSize="10sp"
+                                    android:textAlignment="center" />
+                            </LinearLayout>
+                        </RelativeLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="180dp"
+                        android:layout_height="250dp"
+                        android:layout_rowWeight="1"
+                        android:layout_margin="10dp"
+                        android:layout_marginLeft="10dp"
+                        app:cardCornerRadius="10dp"
+                        android:tag="5"
+                        android:onClick="openMovieDetails"
+                        app:cardElevation="5dp">
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:padding="5dp">
+
+                            <ImageView
+                                android:id="@+id/film6"
+                                android:layout_width="match_parent"
+                                android:layout_height="170dp"
+                                android:src="@drawable/mulan" />
+
+                            <TextView
+                                android:id="@+id/judul6"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/film6"
+                                android:fontFamily="@font/poppin"
+                                android:layout_marginTop="5dp"
+                                android:text="Mulan"
+                                android:textSize="12sp" />
+
+                            <LinearLayout
+                                android:layout_width="350dp"
+                                android:layout_height="50dp"
+                                android:orientation="horizontal"
+                                android:layout_marginTop="5dp"
+                                android:layout_below="@+id/judul6">
+
+                                <ImageView
+                                    android:id="@+id/star6"
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:src="@drawable/baseline_star_24" />
+
+                                <ImageView
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:src="@drawable/baseline_star_24" />
+
+                                <ImageView
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:src="@drawable/baseline_star_24" />
+
+                                <ImageView
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:src="@drawable/baseline_star_24" />
+
+                                <TextView
+                                    android:layout_width="55dp"
+                                    android:layout_height="31dp"
+                                    android:layout_marginStart="5dp"
+                                    android:background="@drawable/shaperating"
+                                    android:backgroundTint="#011B38"
+                                    android:text="4.5"
+                                    android:textColor="@color/white"
+                                    android:textSize="10sp"
+                                    android:textAlignment="center" />
+                            </LinearLayout>
+                        </RelativeLayout>
+                    </androidx.cardview.widget.CardView>
+                </GridLayout>
+
+
+            </GridLayout>
+
+        </RelativeLayout>
+    </ScrollView>
+</FrameLayout>

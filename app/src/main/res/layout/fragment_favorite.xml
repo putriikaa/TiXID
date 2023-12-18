@@ -1,0 +1,88 @@
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Favorite">
+
+    <TextView
+        android:id="@+id/title_favorite"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="25sp"
+        android:text="MOVIE FAVORITE"
+        android:fontFamily="@font/poppinsemibold"
+        android:textColor="#05299E"
+        android:textAlignment="center"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:textStyle="bold" />
+
+    <GridLayout
+        android:id="@+id/gridLayout"
+        android:layout_width="match_parent"
+        android:layout_height="302dp"
+        android:layout_below="@+id/title_favorite"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="30dp"
+        android:columnCount="2"
+        android:columnOrderPreserved="false"
+        android:rowCount="3">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardview1"
+            android:layout_width="180dp"
+            android:layout_height="266dp"
+            android:layout_rowWeight="1"
+            android:layout_margin="10dp"
+            android:clickable="true"
+            android:onClick="openMovieDetails"
+            android:tag="0"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="10dp">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="256dp"
+                android:padding="10dp">
+
+                <ImageView
+                    android:id="@+id/film1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="170dp"
+                    android:layout_marginTop="40dp"
+                    android:src="@drawable/film1" />
+
+                <ImageView
+                    android:id="@+id/favorite_icon1"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginEnd="5dp"
+                    android:src="@drawable/baseline_favorite_24"
+                    app:tint="@color/red" />
+
+                <TextView
+                    android:id="@+id/judul1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/film1"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="5dp"
+                    android:fontFamily="@font/poppin"
+                    android:text="Petualangan Sherina 2"
+                    android:textSize="12sp" />
+
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Add more CardViews for other movies here if needed -->
+
+    </GridLayout>
+</FrameLayout>

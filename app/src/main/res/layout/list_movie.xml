@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="5dp"
+    app:cardUseCompatPadding="true"
+    android:clickable="true"
+    android:focusable="true"
+    android:layout_margin="10dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@drawable/card_gradient">
+
+        <!-- ImageView -->
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/logo" />
+        <!-- TextViews -->
+        <TextView
+            android:id="@+id/text_judul"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="8dp"
+            android:layout_toEndOf="@+id/imageView"
+            android:fontFamily="@font/poppinsemibold"
+            android:textColor="#333333"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            tools:text="Nanti kita cerita hari ini" />
+
+        <TextView
+            android:id="@+id/text_genre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text_judul"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="4dp"
+            android:layout_toEndOf="@+id/imageView"
+            android:textColor="#001845"
+            android:textSize="14sp"
+            tools:text="Your Genre Here" />
+
+        <TextView
+            android:id="@+id/text_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text_genre"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="6dp"
+            android:layout_toEndOf="@+id/imageView"
+            android:textColor="#3C096C"
+            android:textSize="14sp"
+            tools:text="Your Content Here" />
+
+        <!-- LinearLayout for ImageViews -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text_desc"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="-18dp"
+            android:layout_marginEnd="14dp"
+            android:orientation="horizontal">
+
+            <!-- ImageView for Edit -->
+
+            <!-- ImageView for Delete -->
+            <ImageView
+                android:id="@+id/icon_edit"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/baseline_edit_24"
+                app:tint="#3D348B" />
+
+            <ImageView
+                android:id="@+id/icon_delete"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/baseline_delete_24"
+                app:tint="@color/emas" />
+        </LinearLayout>
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

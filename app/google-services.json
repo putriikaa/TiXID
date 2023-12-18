@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "960372562071",
+    "project_id": "uas-papb-892ff",
+    "storage_bucket": "uas-papb-892ff.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:960372562071:android:84e042feae0484512931d2",
+        "android_client_info": {
+          "package_name": "com.example.uas"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAv3IZA8XqojnBIa0kCyEYB-reVpRuuigI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
