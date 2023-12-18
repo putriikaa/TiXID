@@ -64,14 +64,15 @@ class FormAddMovie : AppCompatActivity() {
                     val judul = txtTitle.text.toString()
                     val genre = txtKategori.text.toString()
                     val desc = txtDes.text.toString()
-                    val url = uploadImage()
+
                     val newMovie = Movie(
                         judul = judul,
                         genre = genre,
                         desc = desc,
-                        url = url
+
                     )
                     addData(newMovie)
+                    uploadImage()
                     resetForm()
                     setResultAndFinish()
                 } else {
@@ -97,7 +98,7 @@ class FormAddMovie : AppCompatActivity() {
 
         if (requestCode == 100 && resultCode == RESULT_OK) {
             ImageUri = data?.data!!
-            Log.d("FormActivity", "Error updating data imageeeee: "+ data?.data!!)
+            Log.d("FormActivity", "Error updating data imageeeee: " + data?.data!!)
             binding.uploadimg.setImageURI(ImageUri)
         }
     }
@@ -121,7 +122,6 @@ class FormAddMovie : AppCompatActivity() {
     }
 
 
-
     private fun resetForm() {
         with(binding) {
             txtTitle.setText("")
@@ -138,7 +138,7 @@ class FormAddMovie : AppCompatActivity() {
             }
     }
 
-    private fun uploadImage():String {
+    private fun uploadImage() {
         val progressDialog = ProgressDialog(this)
         progressDialog.setMessage("Uploading File..")
         progressDialog.setCancelable(false)
@@ -147,22 +147,28 @@ class FormAddMovie : AppCompatActivity() {
         val formatter = SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.getDefault())
         val now = Date()
         val fileName = formatter.format(now)
-        val storageReference = FirebaseStorage.getInstance().getReference("$fileName"+".jpg")
-        Log.d("isfdvvdhsjhsbddjsbjsb","storage reference "+storageReference.bucket)
-
+        val storageReference = FirebaseStorage.getInstance().getReference("$fileName" + ".jpg")
+        Log.d("isfdvvdhsjhsbddjsbjsb", "storage reference " + storageReference.bucket)
 
         storageReference.putFile(ImageUri)
             .addOnSuccessListener {
                 binding.uploadimg.setImageURI(null)
-                Toast.makeText(this@FormAddMovie, "Successfully uploaded", Toast.LENGTH_SHORT).show()
+                storageReference.downloadUrl.addOnSuccessListener {
+                    Log.d("img url", "img urleeeee" + it.toString())
+                }
+                Toast.makeText(this@FormAddMovie, "Successfully uploaded", Toast.LENGTH_SHORT)
+                    .show()
                 if (progressDialog.isShowing) progressDialog.dismiss()
             }.addOnFailureListener {
                 Log.d("aaaaaaaaaaaaaa", "Error updating img:", it)
 
                 if (progressDialog.isShowing)
-                    Toast.makeText(this@FormAddMovie, "Error updating img:"+it, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@FormAddMovie,
+                        "Error updating img:" + it,
+                        Toast.LENGTH_SHORT
+                    ).show()
             }
-        return storageReference.path
     }
 
     private fun setResultAndFinish() {
