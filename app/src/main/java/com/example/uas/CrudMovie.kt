@@ -8,150 +8,92 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.uas.databinding.ActivityCrudMovieBinding
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.firestore.FirebaseFirestore
 
+
 class CrudMovie : AppCompatActivity() {
-
     private lateinit var binding: ActivityCrudMovieBinding
-    private lateinit var movieAdapter: MovieAdapter
-    private val channelId = "MOVIE_NOTIFICATION"
-    private val notifId = 90
+    private lateinit var itemAdapter: MovieAdapter
+    private lateinit var itemList: ArrayList<Movie>
+    private lateinit var recyclerViewItem: RecyclerView
 
-    // Firebase
     private val firebase = FirebaseFirestore.getInstance()
     private val movieadminCollectionRef = firebase.collection("movieadmin")
-
-    companion object {
-        const val FORM_ACTIVITY_REQUEST_CODE = 1
-        const val DETAIL_ACTIVITY_REQUEST_CODE = 2
-        const val EXTRA_UPDATE_ID = "extra_update_id"
-        const val EXTRA_TITLE = "extra_title"
-        const val EXTRA_GENRE = "extra_genre"
-        const val EXTRA_DESC = "extra_desc"
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCrudMovieBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setupRecyclerView()
+        recyclerViewItem = binding.rvMovie
+        recyclerViewItem.setHasFixedSize(true)
+        recyclerViewItem.layoutManager = LinearLayoutManager(this)
 
-        binding.fab.setOnClickListener {
-            val intent = Intent(this@CrudMovie, FormAddMovie::class.java)
-            startActivityForResult(intent, FORM_ACTIVITY_REQUEST_CODE)
-        }
+        itemList = arrayListOf()
+        itemAdapter = MovieAdapter(itemList, movieadminCollectionRef)
+        recyclerViewItem.adapter = itemAdapter
 
-        loadDataMovie()
-    }
-
-    private fun setupRecyclerView() {
-        movieAdapter = MovieAdapter(emptyList(), object : MovieAdapter.OnEditClickListener {
-            override fun onEditClick(movie: Movie) {
-                val intent = Intent(this@CrudMovie, FormAddMovie::class.java).apply {
-                    putExtra(EXTRA_UPDATE_ID, movie.id)
-                    putExtra(EXTRA_TITLE, movie.judul)
-                    putExtra(EXTRA_GENRE, movie.genre)
-                    putExtra(EXTRA_DESC, movie.desc)
-                }
-                startActivityForResult(intent, DETAIL_ACTIVITY_REQUEST_CODE)
+        with(binding) {
+            fab.setOnClickListener {
+                startActivity(Intent(this@CrudMovie, FormAddMovie::class.java))
             }
 
-            override fun onDeleteClick(movie: Movie) {
-                deleteMovie(movie)
+            btnLogoutAdmin.setOnClickListener {
+                // Ubah nilai userType menjadi "guest" di SharedPreferences
+                val sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+                val editor = sharedPreferences.edit()
+                editor.putString("userType", "guest")
+                editor.apply()
+
+                // Start activity login
+                val intent = Intent(this@CrudMovie, MainActivity::class.java)
+                startActivity(intent)
+                finish()
             }
-        })
-
-        binding.rvMovie.apply {
-            layoutManager = LinearLayoutManager(this@CrudMovie)
-            adapter = movieAdapter
         }
-    }
 
-    private fun loadDataMovie() {
-        movieadminCollectionRef.get()
-            .addOnSuccessListener { snapshot ->
-                val movieList = mutableListOf<Movie>()
-                for (document in snapshot) {
+        movieadminCollectionRef.addSnapshotListener { snapshot, e ->
+            if (e != null) {
+                Log.w("CrudMovie", "Listen failed.", e)
+                return@addSnapshotListener
+            }
+
+            if (snapshot != null && !snapshot.isEmpty) {
+                itemList.clear()
+                for (document in snapshot.documents) {
                     val movie = document.toObject(Movie::class.java)
-                    movieList.add(movie)
+                    if (movie != null) {
+                        itemList.add(movie)
+                    }
                 }
+                itemAdapter.notifyDataSetChanged()
 
-                // Log the size of the movie list for debugging
-                Log.d("CrudMovie", "Movie List Size: ${movieList.size}")
+                Log.d("CrudMovie Dataa","${snapshot.toString()}")
+                Log.d("CrudMovie Dataa","${snapshot.toString()}")
+                Log.d("CrudMovie Dataa","${itemList.toString()}")
+                Log.d("CrudMovie Dataa","${itemList.toString()}")
+                Log.d("CrudMovie", "Data retrieved successfully. Size: ${itemList.size}")
 
-                // Update the RecyclerView on the main thread
-                runOnUiThread {
-                    movieAdapter.updateData(movieList)
-                }
+                Log.d("CrudMovie", "Data retrieved successfully. Size: ${itemList.size}")
+            } else {
+                Log.d("CrudMovie", "No data found.")
             }
-            .addOnFailureListener { e ->
-                // Handle the error
-                Log.e("CrudMovie", "Error getting documents: $e")
-            }
-    }
-
-    private fun deleteMovie(movie: Movie) {
-        movieadminCollectionRef.document(movie.id)
-            .delete()
-            .addOnSuccessListener {
-                // Handle success
-                showNotification("Movie Deleted", "Movie ${movie.judul} has been deleted.")
-                loadDataMovie() // Pastikan untuk memanggil loadDataMovie() setelah menghapus data
-            }
-            .addOnFailureListener {
-                // Handle failure
-            }
-    }
-
-    private fun showNotification(title: String, message: String) {
-        val notifManager =
-            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-        val flag = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            PendingIntent.FLAG_IMMUTABLE
-        } else {
-            0
         }
 
-        val intent = Intent(this, CrudMovie::class.java)
-        val pendingIntent = PendingIntent.getActivity(
-            this, 0, intent, flag
-        )
 
-        val builder = NotificationCompat.Builder(
-            this, channelId
-        ).setSmallIcon(R.drawable.ic_launcher_foreground)
-            .setContentTitle(title)
-            .setContentText(message)
-            .setAutoCancel(true)
-            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-            .setContentIntent(pendingIntent)
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val notifChannel = NotificationChannel(
-                channelId,
-                "Movie Notification",
-                NotificationManager.IMPORTANCE_DEFAULT
-            )
-            notifManager.createNotificationChannel(notifChannel)
-        }
 
-        notifManager.notify(notifId, builder.build())
-    }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == FORM_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-            // Data telah ditambahkan, muat ulang data
-            loadDataMovie()
-        } else if (requestCode == DETAIL_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-            // Handle result from detail activity
-            loadDataMovie() // Reload data after editing
-        }
     }
 }
+

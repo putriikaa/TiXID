@@ -7,174 +7,89 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.example.uas.databinding.ActivityFormAddMovieBinding
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
 import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.UploadTask
 import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
+import java.util.*
 
 class FormAddMovie : AppCompatActivity() {
 
     private lateinit var binding: ActivityFormAddMovieBinding
-    lateinit var ImageUri: Uri
+    private lateinit var storageReference: StorageReference
+    private lateinit var imageUri: Uri
 
-    companion object {
-        const val EXTRA_UPDATE_ID = "extra_update_id"
-        const val EXTRA_JUDUL = "extra_judul"
-        const val EXTRA_GENRE = "extra_genre"
-        const val EXTRA_DESC = "extra_desc"
-    }
-
-    // Firebase
     private val firebase = FirebaseFirestore.getInstance()
     private val movieadminCollectionRef = firebase.collection("movieadmin")
 
-
-    private var updateId = ""
+    private val getContent =
+        registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+            if (uri != null) {
+                imageUri = uri
+                binding.uploadimg.setImageURI(uri)
+            }
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityFormAddMovieBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
+
+        binding.btnAdd.setOnClickListener {
+            uploadData(imageUri)
+        }
+
         binding.selectImageBtn.setOnClickListener {
-            selectImage()
+            getContent.launch("image/*")
         }
+    }
 
-        updateId = intent.getStringExtra(EXTRA_UPDATE_ID) ?: ""
+    private fun uploadData(imageUri: Uri? = null) {
+        val judul: String = binding.txtTitleEdit.text.toString()
+        val genre: String = binding.txtKategoriEdit.text.toString()
+        val desc: String = binding.txtDesEdit.text.toString()
 
-        if (updateId.isNotEmpty()) {
-            // If ID is not empty, it's an update mode
-            val judul = intent.getStringExtra(EXTRA_JUDUL) ?: ""
-            val genre = intent.getStringExtra(EXTRA_GENRE) ?: ""
-            val desc = intent.getStringExtra(EXTRA_DESC) ?: ""
+        if (judul.isNotEmpty() && genre.isNotEmpty() && desc.isNotEmpty() && imageUri != null) {
+            val progressDialog = ProgressDialog(this)
+            progressDialog.setMessage("Uploading Data...")
+            progressDialog.setCancelable(false)
+            progressDialog.show()
+            // Generate a unique ID for the document
+            val documentId = UUID.randomUUID().toString()
 
-            with(binding) {
-                txtTitle.setText(judul)
-                txtKategori.setText(genre)
-                txtDes.setText(desc)
-            }
-        }
+            // Upload image to Firebase Storage with the generated ID
+            storageReference = FirebaseStorage.getInstance().reference.child("images/$documentId")
+            val uploadTask: UploadTask = storageReference.putFile(imageUri)
 
-        with(binding) {
-            btnAdd.setOnClickListener {
-                if (txtTitle.text.isNotEmpty() && txtKategori.text.isNotEmpty() && txtDes.text.isNotEmpty()) {
-                    val judul = txtTitle.text.toString()
-                    val genre = txtKategori.text.toString()
-                    val desc = txtDes.text.toString()
-
-                    val newMovie = Movie(
-                        judul = judul,
-                        genre = genre,
-                        desc = desc,
-
-                    )
-                    addData(newMovie)
-                    uploadImage()
-                    resetForm()
-                    setResultAndFinish()
-                } else {
-                    Toast.makeText(
-                        applicationContext,
-                        "Please fill the form correctly",
-                        Toast.LENGTH_SHORT
-                    ).show()
+            uploadTask.addOnSuccessListener { taskSnapshot ->
+                storageReference.downloadUrl.addOnSuccessListener { imageUrl ->
+                    val movie = Movie(judul, genre, desc, imageUrl.toString(),documentId)
+                    // Add the movie data to Firestore
+                    movieadminCollectionRef.document(documentId)
+                        .set(movie, SetOptions.merge())
+                        .addOnSuccessListener {
+                            progressDialog.dismiss()
+                            Toast.makeText(this, "Data Uploaded Successfully", Toast.LENGTH_SHORT).show()
+                            finish()
+                        }
+                        .addOnFailureListener { e ->
+                            progressDialog.dismiss()
+                            Toast.makeText(this, "Adding Data Failed: $e", Toast.LENGTH_SHORT).show()
+                        }
                 }
+            }.addOnFailureListener { e ->
+                progressDialog.dismiss()
+                Toast.makeText(this, "Image Upload Failed: $e", Toast.LENGTH_SHORT).show()
             }
+        } else {
+            Toast.makeText(this, "Please fill in all fields and select an image", Toast.LENGTH_SHORT).show()
         }
-    }
-
-    private fun selectImage() {
-        val intent = Intent()
-        intent.type = "image/*"
-        intent.action = Intent.ACTION_GET_CONTENT
-        startActivityForResult(intent, 100)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == 100 && resultCode == RESULT_OK) {
-            ImageUri = data?.data!!
-            Log.d("FormActivity", "Error updating data imageeeee: " + data?.data!!)
-            binding.uploadimg.setImageURI(ImageUri)
-        }
-    }
-
-    private fun addData(movie: Movie) {
-        movieadminCollectionRef.add(movie)
-            .addOnSuccessListener { docRef ->
-                val createMovieId = docRef.id
-                movie.id = createMovieId
-                docRef.set(movie)
-                    .addOnFailureListener {
-                        Log.d("FormActivity", "Error updating data ID: ", it)
-                    }
-                resetForm()
-                setResultAndFinish()
-
-            }
-            .addOnFailureListener {
-                Log.d("FormActivity", "Error adding data: ", it)
-            }
-    }
-
-
-    private fun resetForm() {
-        with(binding) {
-            txtTitle.setText("")
-            txtKategori.setText("")
-            txtDes.setText("")
-        }
-    }
-
-    private fun updateData(movie: Movie) {
-        movie.id = updateId
-        movieadminCollectionRef.document(updateId).set(movie)
-            .addOnFailureListener {
-                Log.d("FormActivity", "Error updating data:", it)
-            }
-    }
-
-    private fun uploadImage() {
-        val progressDialog = ProgressDialog(this)
-        progressDialog.setMessage("Uploading File..")
-        progressDialog.setCancelable(false)
-        progressDialog.show()
-
-        val formatter = SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.getDefault())
-        val now = Date()
-        val fileName = formatter.format(now)
-        val storageReference = FirebaseStorage.getInstance().getReference("$fileName" + ".jpg")
-        Log.d("isfdvvdhsjhsbddjsbjsb", "storage reference " + storageReference.bucket)
-
-        storageReference.putFile(ImageUri)
-            .addOnSuccessListener {
-                binding.uploadimg.setImageURI(null)
-                storageReference.downloadUrl.addOnSuccessListener {
-                    Log.d("img url", "img urleeeee" + it.toString())
-                }
-                Toast.makeText(this@FormAddMovie, "Successfully uploaded", Toast.LENGTH_SHORT)
-                    .show()
-                if (progressDialog.isShowing) progressDialog.dismiss()
-            }.addOnFailureListener {
-                Log.d("aaaaaaaaaaaaaa", "Error updating img:", it)
-
-                if (progressDialog.isShowing)
-                    Toast.makeText(
-                        this@FormAddMovie,
-                        "Error updating img:" + it,
-                        Toast.LENGTH_SHORT
-                    ).show()
-            }
-    }
-
-    private fun setResultAndFinish() {
-        val resultIntent = Intent().apply {
-            setResult(Activity.RESULT_OK, this)
-        }
-        finish()
     }
 }

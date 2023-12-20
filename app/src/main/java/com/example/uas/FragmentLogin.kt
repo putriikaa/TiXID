@@ -1,5 +1,6 @@
 package com.example.uas
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -32,19 +33,35 @@ class FragmentLogin : Fragment() {
                 .addOnCompleteListener(requireActivity()) { task ->
                     val currentUser = auth.currentUser
                     if (task.isSuccessful && currentUser != null) {
-                        if (currentUser.email == "adminnanda@gmail.com") {
-                            // Start admin activity
-                            startActivity(Intent(requireActivity(), CrudMovie::class.java))
+                        val userType = if (currentUser.email == "adminnanda@gmail.com") {
+                            "admin"
                         } else {
-                            // Start regular activity
-                            startActivity(Intent(requireActivity(), HomeUser::class.java))
+                            "user"
+                        }
+
+                        // Simpan userType ke SharedPreferences
+                        val sharedPreferences =
+                            requireActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+                        val editor = sharedPreferences.edit()
+                        editor.putString("userType", userType)
+                        editor.apply()
+
+                        // Start admin activity atau regular activity sesuai dengan userType
+                        val intentClass = when (userType) {
+                            "user" -> Intent(requireActivity(), HomeUser::class.java)
+                            "admin" -> Intent(requireActivity(), CrudMovie::class.java)
+                            else -> null
+                        }
+
+                        if (intentClass != null) {
+                            startActivity(intentClass)
                         }
                     } else {
                         Toast.makeText(requireActivity(), "Login failed", Toast.LENGTH_SHORT).show()
                     }
                 }
         }
-        return binding.root
+            return binding.root
     }
 
     companion object {

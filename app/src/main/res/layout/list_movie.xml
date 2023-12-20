@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
+    android:layout_height="200dp"
     app:cardCornerRadius="10dp"
     app:cardElevation="5dp"
     app:cardUseCompatPadding="true"
@@ -14,29 +14,29 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="200dp"
         android:background="@drawable/card_gradient">
 
         <!-- ImageView -->
         <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:id="@+id/imageViewAdmin"
+            android:layout_width="120dp"
+            android:layout_height="150dp"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:layout_marginBottom="10dp"
-            android:scaleType="centerCrop"
+            android:scaleType="fitXY"
             android:src="@drawable/logo" />
         <!-- TextViews -->
         <TextView
-            android:id="@+id/text_judul"
+            android:id="@+id/text_judul_admin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_marginStart="15dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="8dp"
-            android:layout_toEndOf="@+id/imageView"
+            android:layout_toEndOf="@+id/imageViewAdmin"
             android:fontFamily="@font/poppinsemibold"
             android:textColor="#333333"
             android:textSize="16sp"
@@ -44,29 +44,29 @@
             tools:text="Nanti kita cerita hari ini" />
 
         <TextView
-            android:id="@+id/text_genre"
+            android:id="@+id/text_genre_admin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/text_judul"
+            android:layout_below="@+id/text_judul_admin"
             android:layout_marginStart="15dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="4dp"
-            android:layout_toEndOf="@+id/imageView"
+            android:layout_toEndOf="@+id/imageViewAdmin"
             android:textColor="#001845"
             android:textSize="14sp"
             tools:text="Your Genre Here" />
 
         <TextView
-            android:id="@+id/text_desc"
+            android:id="@+id/text_desc_admin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/text_genre"
+            android:layout_below="@+id/text_genre_admin"
             android:layout_marginStart="15dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="6dp"
-            android:layout_toEndOf="@+id/imageView"
+            android:layout_toEndOf="@+id/imageViewAdmin"
             android:textColor="#3C096C"
             android:textSize="14sp"
             tools:text="Your Content Here" />
@@ -75,10 +75,10 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/text_desc"
+            android:layout_below="@+id/text_desc_admin"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="-18dp"
-            android:layout_marginEnd="14dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="149dp"
             android:orientation="horizontal">
 
             <!-- ImageView for Edit -->

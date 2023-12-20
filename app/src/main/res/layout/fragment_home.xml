@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<!-- fragment_home.xml -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -61,466 +61,47 @@
                 android:columnOrderPreserved="false"
                 android:rowCount="3">
 
-                <!-- Your CardViews -->
-                <GridLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_below="@+id/your_usn"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="50dp"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginBottom="30dp"
-                    android:columnCount="2"
-                    android:columnOrderPreserved="false"
-                    android:rowCount="3">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/cardview1"
-                        android:layout_width="180dp"
-                        android:layout_height="250dp"
-                        android:layout_rowWeight="1"
-                        android:layout_margin="10dp"
-                        app:cardCornerRadius="10dp"
-                        app:cardElevation="5dp"
-                        android:clickable="true"
-                        android:tag="0"
-                        android:onClick="openMovieDetails">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="25sp"
+                        android:text="TOP MOVIE"
+                        android:fontFamily="@font/poppinsemibold"
+                        android:textColor="#05299E"
+                        android:textAlignment="center"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:textStyle="bold"/>
 
-                        <RelativeLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:padding="5dp">
-                            <ImageView
-                                android:id="@+id/film1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="170dp"
-                                android:src="@drawable/film1"/>
-                            <TextView
-                                android:id="@+id/judul1"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="5dp"
-                                android:text="Petualangan Sherina 2"
-                                android:fontFamily="@font/poppin"
-                                android:textSize="12sp"
-                                android:layout_below="@+id/film1"/>
+                    <!-- Use the RecyclerView instead of the previous CardView -->
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerViewMovies"
+                        tools:listitem="@layout/list_movie_users"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
 
-                            <LinearLayout
-                                android:layout_width="350dp"
-                                android:layout_height="50dp"
-                                android:orientation="horizontal"
-                                android:layout_marginTop="5dp"
-                                android:layout_below="@+id/judul1">
+                <!-- Second Column -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="start">
 
-                                <ImageView
-                                    android:id="@+id/star1"
-                                    android:layout_width="25dp"
-                                    android:layout_height="25dp"
-                                    android:src="@drawable/baseline_star_24" />
-
-                                <ImageView
-                                    android:layout_width="25dp"
-                                    android:layout_height="25dp"
-                                    android:src="@drawable/baseline_star_24" />
-
-                                <ImageView
-                                    android:layout_width="25dp"
-                                    android:layout_height="25dp"
-                                    android:src="@drawable/baseline_star_24" />
-
-                                <ImageView
-                                    android:layout_width="25dp"
-                                    android:layout_height="25dp"
-                                    android:src="@drawable/baseline_star_24" />
-
-                                <TextView
-                                    android:layout_width="50dp"
-                                    android:layout_height="30dp"
-                                    android:layout_marginStart="5dp"
-                                    android:background="@drawable/shaperating"
-                                    android:backgroundTint="#011B38"
-                                    android:text="4.5"
-                                    android:textColor="@color/white"
-                                    android:textSize="10sp"
-                                    android:textAlignment="center" />
-                            </LinearLayout>
-                        </RelativeLayout>
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="180dp"
-                        android:layout_height="250dp"
-                        android:layout_rowWeight="1"
-                        android:layout_margin="10dp"
-                        android:layout_marginLeft="10dp"
-                        app:cardCornerRadius="10dp"
-                        android:tag="1"
-                        android:onClick="openMovieDetails"
-                        app:cardElevation="5dp">
-                        <RelativeLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:padding="5dp">
-
-                            <ImageView
-                                android:id="@+id/film2"
-                                android:layout_width="match_parent"
-                                android:layout_height="170dp"
-                                android:src="@drawable/mermaid" />
-                            <TextView
-                                android:id="@+id/judul2"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="The Little Mermaid"
-                                android:paddingTop="5dp"
-                                android:fontFamily="@font/poppin"
-                                android:textSize="12sp"
-                                android:layout_below="@+id/film2"/>
-
-                            <LinearLayout
-                                android:layout_width="350dp"
-                                android:layout_height="50dp"
-                                android:orientation="horizontal"
-                                android:layout_marginTop="5dp"
-                                android:layout_below="@+id/judul2">
-
-                                <ImageView
-                                    android:id="@+id/star2"
-                                    android:layout_width="25dp"
-                                    android:layout_height="25dp"
-                                    android:src="@drawable/baseline_star_24" />
-
-                                <ImageView
-                                    android:layout_width="25dp"
-                                    android:layout_height="25dp"
-                                    android:src="@drawable/baseline_star_24" />
-
-                                <ImageView
-                                    android:layout_width="25dp"
-                                    android:layout_height="25dp"
-                                    android:src="@drawable/baseline_star_24" />
-
-                                <ImageView
-                                    android:layout_width="25dp"
-                                    android:layout_height="25dp"
-                                    android:src="@drawable/baseline_star_24" />
-
-                                <TextView
-                                    android:layout_width="55dp"
-                                    android:layout_height="31dp"
-                                    android:layout_marginStart="5dp"
-                                    android:background="@drawable/shaperating"
-                                    android:backgroundTint="#011B38"
-                                    android:text="4.5"
-                                    android:textColor="@color/white"
-                                    android:textSize="10sp"
-                                    android:textAlignment="center" />
-                            </LinearLayout>
-                        </RelativeLayout>
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="180dp"
-                        android:layout_height="250dp"
-                        android:layout_rowWeight="1"
-                        android:layout_margin="10dp"
-                        android:layout_marginLeft="10dp"
-                        app:cardCornerRadius="10dp"
-                        android:tag="2"
-                        android:onClick="openMovieDetails"
-                        app:cardElevation="5dp">
-
-                        <RelativeLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:padding="5dp">
-
-                            <ImageView
-                                android:id="@+id/film3"
-                                android:layout_width="match_parent"
-                                android:layout_height="170dp"
-                                android:src="@drawable/aladin" />
-
-                            <TextView
-                                android:id="@+id/judul3"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@+id/film3"
-                                android:fontFamily="@font/poppin"
-                                android:layout_marginTop="5dp"
-                                android:text="Aladdin"
-                                android:textSize="12sp" />
-
-                            <LinearLayout
-                                android:layout_width="350dp"
-                                android:layout_height="50dp"
-                                android:orientation="horizontal"
-                                android:layout_marginTop="5dp"
-                                android:layout_below="@+id/judul3">
-
-                                <ImageView
-                                    android:id="@+id/star3"
-                                    android:layout_width="25dp"
-                                    android:layout_height="25dp"
-                                    android:src="@drawable/baseline_star_24" />
-
-                                <ImageView
-                                    android:layout_width="25dp"
-                                    android:layout_height="25dp"
-                                    android:src="@drawable/baseline_star_24" />
-
-                                <ImageView
-                                    android:layout_width="25dp"
-                                    android:layout_height="25dp"
-                                    android:src="@drawable/baseline_star_24" />
-
-                                <ImageView
-                                    android:layout_width="25dp"
-                                    android:layout_height="25dp"
-                                    android:src="@drawable/baseline_star_24" />
-
-                                <TextView
-                                    android:layout_width="55dp"
-                                    android:layout_height="31dp"
-                                    android:layout_marginStart="5dp"
-                                    android:background="@drawable/shaperating"
-                                    android:backgroundTint="#011B38"
-                                    android:text="4.5"
-                                    android:textColor="@color/white"
-                                    android:textSize="10sp"
-                                    android:textAlignment="center" />
-                            </LinearLayout>
-                        </RelativeLayout>
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="180dp"
-                        android:layout_height="250dp"
-                        android:layout_rowWeight="1"
-                        android:layout_margin="10dp"
-                        android:layout_marginLeft="10dp"
-                        app:cardCornerRadius="10dp"
-                        android:tag="3"
-                        android:onClick="openMovieDetails"
-                        app:cardElevation="5dp">
-
-                        <RelativeLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:padding="5dp">
-
-                            <ImageView
-                                android:id="@+id/film4"
-                                android:layout_width="match_parent"
-                                android:layout_height="170dp"
-                                android:src="@drawable/moana" />
-
-                            <TextView
-                                android:id="@+id/judul4"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@+id/film4"
-                                android:fontFamily="@font/poppin"
-                                android:layout_marginTop="5dp"
-                                android:text="Moana"
-                                android:textSize="12sp" />
-
-                            <LinearLayout
-                                android:layout_width="350dp"
-                                android:layout_height="50dp"
-                                android:orientation="horizontal"
-                                android:layout_marginTop="5dp"
-                                android:layout_below="@+id/judul4">
-
-                                <ImageView
-                                    android:id="@+id/star4"
-                                    android:layout_width="25dp"
-                                    android:layout_height="25dp"
-                                    android:src="@drawable/baseline_star_24" />
-
-                                <ImageView
-                                    android:layout_width="25dp"
-                                    android:layout_height="25dp"
-                                    android:src="@drawable/baseline_star_24" />
-
-                                <ImageView
-                                    android:layout_width="25dp"
-                                    android:layout_height="25dp"
-                                    android:src="@drawable/baseline_star_24" />
-
-                                <ImageView
-                                    android:layout_width="25dp"
-                                    android:layout_height="25dp"
-                                    android:src="@drawable/baseline_star_24" />
-
-                                <TextView
-                                    android:layout_width="55dp"
-                                    android:layout_height="31dp"
-                                    android:layout_marginStart="5dp"
-                                    android:background="@drawable/shaperating"
-                                    android:backgroundTint="#011B38"
-                                    android:text="4.5"
-                                    android:textColor="@color/white"
-                                    android:textSize="10sp"
-                                    android:textAlignment="center" />
-                            </LinearLayout>
-                        </RelativeLayout>
-                    </androidx.cardview.widget.CardView>
-
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="180dp"
-                        android:layout_height="250dp"
-                        android:layout_rowWeight="1"
-                        android:layout_margin="10dp"
-                        android:layout_marginLeft="10dp"
-                        app:cardCornerRadius="10dp"
-                        android:tag="4"
-                        android:onClick="openMovieDetails"
-                        app:cardElevation="5dp">
-
-                        <RelativeLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:padding="5dp">
-
-                            <ImageView
-                                android:id="@+id/film5"
-                                android:layout_width="match_parent"
-                                android:layout_height="170dp"
-                                android:src="@drawable/avatar" />
-
-                            <TextView
-                                android:id="@+id/judul5"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@+id/film5"
-                                android:fontFamily="@font/poppin"
-                                android:layout_marginTop="5dp"
-                                android:text="Avatar"
-                                android:textSize="12sp" />
-
-                            <LinearLayout
-                                android:layout_width="350dp"
-                                android:layout_height="50dp"
-                                android:orientation="horizontal"
-                                android:layout_marginTop="5dp"
-                                android:layout_below="@+id/judul5">
-
-                                <ImageView
-                                    android:id="@+id/star5"
-                                    android:layout_width="25dp"
-                                    android:layout_height="25dp"
-                                    android:src="@drawable/baseline_star_24" />
-
-                                <ImageView
-                                    android:layout_width="25dp"
-                                    android:layout_height="25dp"
-                                    android:src="@drawable/baseline_star_24" />
-
-                                <ImageView
-                                    android:layout_width="25dp"
-                                    android:layout_height="25dp"
-                                    android:src="@drawable/baseline_star_24" />
-
-                                <ImageView
-                                    android:layout_width="25dp"
-                                    android:layout_height="25dp"
-                                    android:src="@drawable/baseline_star_24" />
-
-                                <TextView
-                                    android:layout_width="55dp"
-                                    android:layout_height="31dp"
-                                    android:layout_marginStart="5dp"
-                                    android:background="@drawable/shaperating"
-                                    android:backgroundTint="#011B38"
-                                    android:text="4.5"
-                                    android:textColor="@color/white"
-                                    android:textSize="10sp"
-                                    android:textAlignment="center" />
-                            </LinearLayout>
-                        </RelativeLayout>
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="180dp"
-                        android:layout_height="250dp"
-                        android:layout_rowWeight="1"
-                        android:layout_margin="10dp"
-                        android:layout_marginLeft="10dp"
-                        app:cardCornerRadius="10dp"
-                        android:tag="5"
-                        android:onClick="openMovieDetails"
-                        app:cardElevation="5dp">
-
-                        <RelativeLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:padding="5dp">
-
-                            <ImageView
-                                android:id="@+id/film6"
-                                android:layout_width="match_parent"
-                                android:layout_height="170dp"
-                                android:src="@drawable/mulan" />
-
-                            <TextView
-                                android:id="@+id/judul6"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@+id/film6"
-                                android:fontFamily="@font/poppin"
-                                android:layout_marginTop="5dp"
-                                android:text="Mulan"
-                                android:textSize="12sp" />
-
-                            <LinearLayout
-                                android:layout_width="350dp"
-                                android:layout_height="50dp"
-                                android:orientation="horizontal"
-                                android:layout_marginTop="5dp"
-                                android:layout_below="@+id/judul6">
-
-                                <ImageView
-                                    android:id="@+id/star6"
-                                    android:layout_width="25dp"
-                                    android:layout_height="25dp"
-                                    android:src="@drawable/baseline_star_24" />
-
-                                <ImageView
-                                    android:layout_width="25dp"
-                                    android:layout_height="25dp"
-                                    android:src="@drawable/baseline_star_24" />
-
-                                <ImageView
-                                    android:layout_width="25dp"
-                                    android:layout_height="25dp"
-                                    android:src="@drawable/baseline_star_24" />
-
-                                <ImageView
-                                    android:layout_width="25dp"
-                                    android:layout_height="25dp"
-                                    android:src="@drawable/baseline_star_24" />
-
-                                <TextView
-                                    android:layout_width="55dp"
-                                    android:layout_height="31dp"
-                                    android:layout_marginStart="5dp"
-                                    android:background="@drawable/shaperating"
-                                    android:backgroundTint="#011B38"
-                                    android:text="4.5"
-                                    android:textColor="@color/white"
-                                    android:textSize="10sp"
-                                    android:textAlignment="center" />
-                            </LinearLayout>
-                        </RelativeLayout>
-                    </androidx.cardview.widget.CardView>
-                </GridLayout>
-
-
+                    <!-- Content for the second column goes here -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Second Column Content"
+                        android:textSize="18sp"
+                        android:padding="10dp"/>
+                </LinearLayout>
             </GridLayout>
-
         </RelativeLayout>
     </ScrollView>
 </FrameLayout>
