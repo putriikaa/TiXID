@@ -60,13 +60,13 @@ class FragmentRegister : Fragment() {
 
     private fun sendNotification() {
         val notificationManager = requireContext().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        val channelId = "Your_Channel_Id"
-        val notificationId = 1 // You may use different notification IDs for different notifications
+        val channelId = "POST_NOTIFICATION"
+        val notificationId = 1
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 channelId,
-                "Your_Channel_Name",
+                "TixID",
                 NotificationManager.IMPORTANCE_DEFAULT
             )
             notificationManager.createNotificationChannel(channel)
@@ -74,8 +74,8 @@ class FragmentRegister : Fragment() {
 
         val builder = NotificationCompat.Builder(requireContext(), channelId)
             .setSmallIcon(R.drawable.ic_launcher_background)
-            .setContentTitle("Widih! Selamat Bergabung")
-            .setContentText("Selamat! Anda telah berhasil bergabung.")
+            .setContentTitle("Berhasil daftar TixID")
+            .setContentText("Selamat! Anda telah berhasil berlangganan TixID.")
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
 
         notificationManager.notify(notificationId, builder.build())

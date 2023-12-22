@@ -13,7 +13,7 @@
         <ImageView
             android:id="@+id/imageViewDetail"
             android:layout_width="match_parent"
-            android:layout_height="400dp"
+            android:layout_height="380dp"
             android:src="@drawable/mermaid"
             android:scaleType="centerCrop"/>
 
@@ -89,16 +89,16 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_back"
-            android:layout_width="380dp"
-            android:layout_height="35dp"
+            android:layout_width="350dp"
+            android:layout_height="40dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="20dp"
             android:background="@drawable/shape"
             android:backgroundTint="@color/emas"
             android:text="BACK TO HOME"
             android:textColor="@color/navy"
-            android:textSize="14sp"
+            android:textSize="16sp"
             android:layout_gravity="center_horizontal"
-            tools:ignore="RtlHardcoded" />
+          android:gravity="center" />
     </LinearLayout>
 </ScrollView>

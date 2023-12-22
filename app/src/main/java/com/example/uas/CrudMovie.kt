@@ -1,3 +1,4 @@
+// Import berbagai komponen yang digunakan dalam kode
 package com.example.uas
 
 import android.app.NotificationChannel
@@ -24,34 +25,41 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.firestore.FirebaseFirestore
 
-
+// Deklarasi kelas utama sebagai turunan dari AppCompatActivity
 class CrudMovie : AppCompatActivity() {
+    // Inisialisasi berbagai variabel dan objek yang diperlukan
     private lateinit var binding: ActivityCrudMovieBinding
     private lateinit var itemAdapter: MovieAdapter
     private lateinit var itemList: ArrayList<Movie>
     private lateinit var recyclerViewItem: RecyclerView
     private lateinit var prefManager: PrefManager
-    private lateinit var auth : FirebaseAuth
+    private lateinit var auth: FirebaseAuth
 
+    // Inisialisasi objek Firebase Firestore dan referensi koleksi 'movieadmin'
     private val firebase = FirebaseFirestore.getInstance()
     private val movieadminCollectionRef = firebase.collection("movieadmin")
 
+    // Metode yang dipanggil saat aktivitas dibuat
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCrudMovieBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Inisialisasi objek FirebaseAuth
         auth = Firebase.auth
 
+        // Inisialisasi dan konfigurasi RecyclerView
         recyclerViewItem = binding.rvMovie
         recyclerViewItem.setHasFixedSize(true)
         recyclerViewItem.layoutManager = LinearLayoutManager(this)
 
+        // Inisialisasi ArrayList dan adapter untuk RecyclerView
         itemList = arrayListOf()
         itemAdapter = MovieAdapter(itemList, movieadminCollectionRef)
         recyclerViewItem.adapter = itemAdapter
         prefManager = PrefManager.getInstance(this@CrudMovie)
 
+        // Pengaturan tindakan klik pada FloatingActionButton dan tombol logout
         with(binding) {
             fab.setOnClickListener {
                 startActivity(Intent(this@CrudMovie, FormAddMovie::class.java))
@@ -62,14 +70,13 @@ class CrudMovie : AppCompatActivity() {
                 prefManager.setLoggedIn(false)
                 prefManager.clear()
 
-
-                // Start activity login
                 val intent = Intent(this@CrudMovie, MainActivity::class.java)
                 startActivity(intent)
                 finishAffinity()
             }
         }
 
+        // Menambahkan pendengar untuk snapshot dari koleksi 'movieadmin'
         movieadminCollectionRef.addSnapshotListener { snapshot, e ->
             if (e != null) {
                 Log.w("CrudMovie", "Listen failed.", e)
@@ -86,22 +93,10 @@ class CrudMovie : AppCompatActivity() {
                 }
                 itemAdapter.notifyDataSetChanged()
 
-                Log.d("CrudMovie Dataa","${snapshot.toString()}")
-                Log.d("CrudMovie Dataa","${snapshot.toString()}")
-                Log.d("CrudMovie Dataa","${itemList.toString()}")
-                Log.d("CrudMovie Dataa","${itemList.toString()}")
-                Log.d("CrudMovie", "Data retrieved successfully. Size: ${itemList.size}")
-
                 Log.d("CrudMovie", "Data retrieved successfully. Size: ${itemList.size}")
             } else {
                 Log.d("CrudMovie", "No data found.")
             }
         }
-
-
-
-
-
     }
 }
-

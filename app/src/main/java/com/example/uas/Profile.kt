@@ -60,7 +60,6 @@ class Profile : Fragment() {
                 prefManager.clear()
                 auth.signOut()
 
-                // Start activity login
                 val intent = Intent(requireContext(), MainActivity::class.java)
                 startActivity(intent)
                 requireActivity().finishAffinity()

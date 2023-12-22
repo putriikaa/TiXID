@@ -59,7 +59,7 @@ class FormAddMovie : AppCompatActivity() {
 
         if (judul.isNotEmpty() && genre.isNotEmpty() && desc.isNotEmpty() && imageUri != null) {
             val progressDialog = ProgressDialog(this)
-            progressDialog.setMessage("Uploading Data...")
+            progressDialog.setMessage("Sedang Mengunggah Data...")
             progressDialog.setCancelable(false)
             progressDialog.show()
             // Generate a unique ID for the document
@@ -77,20 +77,20 @@ class FormAddMovie : AppCompatActivity() {
                         .set(movie, SetOptions.merge())
                         .addOnSuccessListener {
                             progressDialog.dismiss()
-                            Toast.makeText(this, "Data Uploaded Successfully", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this, "Data Berhasil Diupload", Toast.LENGTH_SHORT).show()
                             finish()
                         }
                         .addOnFailureListener { e ->
                             progressDialog.dismiss()
-                            Toast.makeText(this, "Adding Data Failed: $e", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this, "Gagal: $e", Toast.LENGTH_SHORT).show()
                         }
                 }
             }.addOnFailureListener { e ->
                 progressDialog.dismiss()
-                Toast.makeText(this, "Image Upload Failed: $e", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Gambar gagal diupload: $e", Toast.LENGTH_SHORT).show()
             }
         } else {
-            Toast.makeText(this, "Please fill in all fields and select an image", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Tolong lengkapi form dan pilih gambar", Toast.LENGTH_SHORT).show()
         }
     }
 }

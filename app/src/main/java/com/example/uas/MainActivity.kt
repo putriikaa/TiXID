@@ -24,8 +24,6 @@ class MainActivity : AppCompatActivity() {
         binding.tabLayout.setupWithViewPager(binding.viewPager)
 
         prefManager = PrefManager.getInstance(this@MainActivity)
-
-//         Call navigateToCorrectActivity after setting up the adapter
         Log.d("sharepref", prefManager.getUsername())
 
         if (prefManager.isLoggedIn()){

@@ -1,5 +1,6 @@
 <!-- fragment_home.xml -->
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -30,9 +31,9 @@
                     android:fontFamily="@font/poppin"
                     android:text="Hello,"
                     android:textColor="@color/white"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="25dp"
                     android:layout_marginStart="20dp"
-                    android:textSize="16sp" />
+                    android:textSize="24sp" />
 
                 <TextView
                     android:id="@+id/your_usn"
@@ -40,10 +41,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:fontFamily="@font/poppin"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="25dp"
                     android:text="Username"
                     android:textColor="@color/emas"
-                    android:textSize="16sp" />
+                    android:textSize="24sp" />
             </LinearLayout>
 
             <!-- Use GridLayout for Top Movie section -->
@@ -51,8 +52,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
+
+
                 android:layout_marginBottom="30dp"
                 android:columnCount="2"
                 android:columnOrderPreserved="false"
@@ -67,12 +68,12 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="25sp"
+                        android:textSize="30sp"
                         android:text="TOP MOVIE"
                         android:fontFamily="@font/poppinsemibold"
                         android:textColor="@color/white"
                         android:textAlignment="center"
-                        android:layout_marginTop="20dp"
+                        android:layout_marginTop="5dp"
                         android:layout_marginBottom="20dp"
                         android:textStyle="bold"/>
 

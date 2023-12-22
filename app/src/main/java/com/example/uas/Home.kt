@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.uas.database.MovieDao
@@ -48,7 +49,6 @@ class Home : Fragment() {
 
         recyclerViewItem = binding.recyclerViewMovies
         recyclerViewItem.setHasFixedSize(true)
-        recyclerViewItem.layoutManager = LinearLayoutManager(requireActivity())
 
         itemList = arrayListOf()
         itemAdapter = UserAdapter(itemList, movieadminCollectionRef)
@@ -92,18 +92,12 @@ class Home : Fragment() {
     }
 
     private fun openMovieDetails(filmId: String) {
-        // Buat Intent untuk membuka DetailsMovie Activity
         val intent = Intent(requireContext(), DetailsMovie::class.java)
-
-        // Kirim data tambahan (jika diperlukan)
         intent.putExtra("filmId", filmId)
-
-        // Mulai DetailsMovie Activity
         requireActivity().startActivity(intent)
     }
 
     private fun fetchDataFromFirestore(){
-        Log.d("FirebaseToLocal","Mulai penyalinan data dari firestore ke lokal")
 
         val firestoreMovie = firebase.collection("movieadmin")
         firestoreMovie.get().addOnSuccessListener { documents ->
@@ -128,7 +122,6 @@ class Home : Fragment() {
             }
         }
     private fun getLoggedInUserEmail(): String {
-        // Gantilah dengan logika yang sesuai untuk mendapatkan nilai email setelah login
         val currentUser = FirebaseAuth.getInstance().currentUser
         return currentUser?.email ?: "user@example.com"
     }

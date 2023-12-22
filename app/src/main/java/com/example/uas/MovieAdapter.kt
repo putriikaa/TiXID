@@ -91,7 +91,6 @@ class MovieAdapter(
                 }
             }
             .addOnFailureListener { e ->
-                // Handle failure
                 Log.e("MovieAdapter", "Error deleting document: $e")
             }
     }

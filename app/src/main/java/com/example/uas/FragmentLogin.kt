@@ -45,12 +45,6 @@ class FragmentLogin : Fragment() {
                             "user"
                         }
 
-                        // Simpan userType ke SharedPreferences
-//                        val sharedPreferences =
-//                            requireActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
-//                        val editor = sharedPreferences.edit()
-//                        editor.putString("userType", userType)
-//                        editor.apply()
 
                         // Start admin activity atau regular activity sesuai dengan userType
                         val intentClass = when (userType) {
@@ -68,9 +62,5 @@ class FragmentLogin : Fragment() {
                 }
         }
             return binding.root
-    }
-
-    companion object {
-        const val EXTRA_USERNAME = "extra_username"
     }
 }

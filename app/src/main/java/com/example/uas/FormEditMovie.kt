@@ -64,14 +64,12 @@ class FormEditMovie : AppCompatActivity() {
         val documentId = Uri.parse(intent.getStringExtra("imgId")).lastPathSegment?.removePrefix("images/")
 
         if (imageUri != null) {
-            // Upload new image and update data
             storageReference = FirebaseStorage.getInstance().reference.child("images/$documentId")
             val uploadTask = storageReference.putFile(imageUri)
 
             uploadTask.addOnSuccessListener { taskSnapshot ->
                 storageReference.downloadUrl.addOnSuccessListener { imageUrl ->
                     val updatedMovie = Movie(updatedTitle, updatedGenre, updatedDesc, imageUrl.toString(), documentId!!)
-                    // Update data in Firestore
                     movieadminCollectionRef.document(documentId!!)
                         .set(updatedMovie)
                         .addOnSuccessListener {
@@ -86,7 +84,6 @@ class FormEditMovie : AppCompatActivity() {
                 Toast.makeText(this, "Image Upload Failed!", Toast.LENGTH_SHORT).show()
             }
         } else {
-            // Update data without uploading a new image
             val originalImageUrl = intent.getStringExtra("imgId")
             val updatedMovie = Movie(updatedTitle, updatedGenre, updatedDesc, originalImageUrl!!, documentId!!)
             movieadminCollectionRef.document(documentId!!)

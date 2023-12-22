@@ -15,25 +15,21 @@ class DetailsMovie : AppCompatActivity() {
         binding = ActivityDetailsMovieBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Mendapatkan data dari Intent
         val title = intent.getStringExtra("title")
         val genre = intent.getStringExtra("genre")
         val description = intent.getStringExtra("description")
         val imgId = intent.getStringExtra("imgId")
 
-        // Menampilkan data di tampilan
         binding.titleDetail.text = title
         binding.categoriesDetail.text = genre
         binding.descriptionDetail.text = description
 
-        // Menggunakan Glide untuk memuat dan menampilkan gambar
         Glide.with(this)
             .load(imgId)
-            .skipMemoryCache(true) // Skip caching in memory
-            .diskCacheStrategy(DiskCacheStrategy.NONE) // Skip caching on disk
+            .skipMemoryCache(true)
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
             .into(binding.imageViewDetail)
 
-        // Menambahkan listener untuk tombol kembali
         binding.btnBack.setOnClickListener {
             startActivity(Intent(this@DetailsMovie, HomeUser::class.java))
         }
