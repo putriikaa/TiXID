@@ -3,11 +3,15 @@ package com.example.uas
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.uas.databinding.FragmentProfileBinding
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -22,6 +26,9 @@ private const val ARG_PARAM2 = "param2"
 class Profile : Fragment() {
     // TODO: Rename and change types of parameters
     private lateinit var binding: FragmentProfileBinding
+    private lateinit var auth : FirebaseAuth
+    private lateinit var prefManager: PrefManager
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,25 +42,28 @@ class Profile : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
+
+        auth = Firebase.auth
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        prefManager = PrefManager.getInstance(requireContext())
+
         with(binding) {
             btnKeluar.setOnClickListener {
-                // Ubah nilai userType menjadi "guest" di SharedPreferences
-                val sharedPreferences =
-                    requireActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
-                val editor = sharedPreferences.edit()
-                editor.putString("userType", "guest")
-                editor.apply()
+
+                prefManager.setLoggedIn(false)
+                prefManager.clear()
+                auth.signOut()
 
                 // Start activity login
                 val intent = Intent(requireContext(), MainActivity::class.java)
                 startActivity(intent)
-                requireActivity().finish()
+                requireActivity().finishAffinity()
             }
         }
 

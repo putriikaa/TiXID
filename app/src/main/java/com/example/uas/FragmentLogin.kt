@@ -17,6 +17,8 @@ class FragmentLogin : Fragment() {
 
     private lateinit var binding: ActivityFragmentLoginBinding
     private lateinit var auth: FirebaseAuth
+    private lateinit var prefManager: PrefManager
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,6 +26,8 @@ class FragmentLogin : Fragment() {
     ): View? {
         binding = ActivityFragmentLoginBinding.inflate(inflater, container, false)
         auth = Firebase.auth
+
+        prefManager = PrefManager.getInstance(requireContext())
 
         binding.loginButton.setOnClickListener {
             val enteredEmail = binding.email.text.toString()
@@ -33,6 +37,8 @@ class FragmentLogin : Fragment() {
                 .addOnCompleteListener(requireActivity()) { task ->
                     val currentUser = auth.currentUser
                     if (task.isSuccessful && currentUser != null) {
+                        currentUser.email?.let { itt -> prefManager.saveUsername(itt) }
+                        prefManager.setLoggedIn(true)
                         val userType = if (currentUser.email == "adminnanda@gmail.com") {
                             "admin"
                         } else {
@@ -40,11 +46,11 @@ class FragmentLogin : Fragment() {
                         }
 
                         // Simpan userType ke SharedPreferences
-                        val sharedPreferences =
-                            requireActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
-                        val editor = sharedPreferences.edit()
-                        editor.putString("userType", userType)
-                        editor.apply()
+//                        val sharedPreferences =
+//                            requireActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+//                        val editor = sharedPreferences.edit()
+//                        editor.putString("userType", userType)
+//                        editor.apply()
 
                         // Start admin activity atau regular activity sesuai dengan userType
                         val intentClass = when (userType) {

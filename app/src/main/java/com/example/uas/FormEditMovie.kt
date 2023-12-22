@@ -11,6 +11,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.example.uas.database.Movie
 import com.example.uas.databinding.ActivityFormEditMovieBinding
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
@@ -52,8 +53,6 @@ class FormEditMovie : AppCompatActivity() {
         val originalImageUrl = intent.getStringExtra("imgId")
         Glide.with(this)
             .load(originalImageUrl)
-            .skipMemoryCache(true)
-            .diskCacheStrategy(DiskCacheStrategy.NONE)
             .into(binding.uploadimgEdit)
 
         binding.btnUpdate.setOnClickListener {

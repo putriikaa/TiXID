@@ -27,6 +27,7 @@
         android:background="@drawable/shape"
         android:fontFamily="@font/poppin"
         android:textSize="14sp"
+        android:textColor="@color/navy"
         android:backgroundTint="#EDEDED"
         android:paddingStart="30dp"
         android:hint="Email" />
@@ -39,6 +40,7 @@
         android:layout_marginLeft="31dp"
         android:layout_marginTop="400dp"
         android:fontFamily="@font/poppin"
+        android:textColor="@color/navy"
         android:textSize="14sp"
         android:background="@drawable/shape"
         android:backgroundTint="#EDEDED"

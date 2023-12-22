@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/navy"
     tools:context=".FormEditMovie">
 
 
@@ -37,10 +38,12 @@
 
             <Button
                 android:id="@+id/selectImageBtn"
-                android:layout_width="match_parent"
+                android:layout_width="250dp"
+                android:layout_gravity="center"
+                android:textColor="@color/navy"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:backgroundTint="@color/blue"
+                android:backgroundTint="@color/emas"
                 android:fontFamily="@font/poppinsregular"
                 android:text="Pilih File"
                 android:textSize="14sp" />
@@ -86,7 +89,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
-                android:backgroundTint="@color/blue"
+                android:backgroundTint="@color/navy"
                 android:fontFamily="@font/poppinsregular"
                 android:text="Simpan"
                 android:textSize="14sp" />

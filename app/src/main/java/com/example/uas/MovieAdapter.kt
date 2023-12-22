@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.example.uas.database.Movie
 import com.google.firebase.firestore.CollectionReference
 
 
@@ -43,8 +44,6 @@ class MovieAdapter(
 
         Glide.with(holder.itemView.context)
             .load(currentItem.url)
-            .skipMemoryCache(true)
-            .diskCacheStrategy(DiskCacheStrategy.NONE)
             .into(holder.image)
 
         holder.itemView.findViewById<ImageView>(R.id.icon_edit).setOnClickListener {

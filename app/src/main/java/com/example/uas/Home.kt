@@ -1,6 +1,5 @@
 package com.example.uas
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -10,15 +9,24 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.uas.database.MovieDao
+import com.example.uas.database.Movie
+import com.example.uas.database.MovieRoomDatabase
 import com.example.uas.databinding.FragmentHomeBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.toObject
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class Home : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var recyclerViewItem : RecyclerView
     private lateinit var itemAdapter : UserAdapter
     private lateinit var itemList : ArrayList<Movie>
+    private lateinit var movieDao: MovieDao
 
     private val firebase = FirebaseFirestore.getInstance()
     private val movieadminCollectionRef = firebase.collection("movieadmin")
@@ -29,6 +37,8 @@ class Home : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
+
+        fetchDataFromFirestore()
 
         // Ambil nilai email dari data login (menggunakan Firebase Authentication sebagai contoh)
         val userEmail = getLoggedInUserEmail()
@@ -43,6 +53,9 @@ class Home : Fragment() {
         itemList = arrayListOf()
         itemAdapter = UserAdapter(itemList, movieadminCollectionRef)
         recyclerViewItem.adapter = itemAdapter
+
+        val db = MovieRoomDatabase.getDatabase(requireContext())!!.movieDao()!!
+        movieDao = db
 
         movieadminCollectionRef.addSnapshotListener { snapshot, e ->
             if (e != null) {
@@ -89,7 +102,31 @@ class Home : Fragment() {
         requireActivity().startActivity(intent)
     }
 
+    private fun fetchDataFromFirestore(){
+        Log.d("FirebaseToLocal","Mulai penyalinan data dari firestore ke lokal")
 
+        val firestoreMovie = firebase.collection("movieadmin")
+        firestoreMovie.get().addOnSuccessListener { documents ->
+            val movieLocal = mutableListOf<Movie>()
+            for (document in documents) {
+                val movie = document.toObject<Movie>()
+                movieLocal.add(movie)
+            }
+
+            CoroutineScope(Dispatchers.IO).launch {
+                movieDao.deleteAllFilm()
+                for (movie in movieLocal) {
+                    movieDao.insertMovie(movie)
+                }
+
+                withContext(Dispatchers.Main) {
+                    Log.d("FirebaseToLocal", "Penyalinan data selesai")
+                }
+            }
+        }.addOnFailureListener{ exception->
+                Log.e("Firestore", "Error getting documents: $exception")
+            }
+        }
     private fun getLoggedInUserEmail(): String {
         // Gantilah dengan logika yang sesuai untuk mendapatkan nilai email setelah login
         val currentUser = FirebaseAuth.getInstance().currentUser
@@ -97,3 +134,7 @@ class Home : Fragment() {
     }
 
 }
+
+
+
+

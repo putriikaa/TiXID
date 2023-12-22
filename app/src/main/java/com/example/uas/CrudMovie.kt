@@ -13,7 +13,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.uas.database.Movie
 import com.example.uas.databinding.ActivityCrudMovieBinding
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -26,6 +30,8 @@ class CrudMovie : AppCompatActivity() {
     private lateinit var itemAdapter: MovieAdapter
     private lateinit var itemList: ArrayList<Movie>
     private lateinit var recyclerViewItem: RecyclerView
+    private lateinit var prefManager: PrefManager
+    private lateinit var auth : FirebaseAuth
 
     private val firebase = FirebaseFirestore.getInstance()
     private val movieadminCollectionRef = firebase.collection("movieadmin")
@@ -35,6 +41,8 @@ class CrudMovie : AppCompatActivity() {
         binding = ActivityCrudMovieBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        auth = Firebase.auth
+
         recyclerViewItem = binding.rvMovie
         recyclerViewItem.setHasFixedSize(true)
         recyclerViewItem.layoutManager = LinearLayoutManager(this)
@@ -42,6 +50,7 @@ class CrudMovie : AppCompatActivity() {
         itemList = arrayListOf()
         itemAdapter = MovieAdapter(itemList, movieadminCollectionRef)
         recyclerViewItem.adapter = itemAdapter
+        prefManager = PrefManager.getInstance(this@CrudMovie)
 
         with(binding) {
             fab.setOnClickListener {
@@ -49,16 +58,15 @@ class CrudMovie : AppCompatActivity() {
             }
 
             btnLogoutAdmin.setOnClickListener {
-                // Ubah nilai userType menjadi "guest" di SharedPreferences
-                val sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
-                val editor = sharedPreferences.edit()
-                editor.putString("userType", "guest")
-                editor.apply()
+                auth.signOut()
+                prefManager.setLoggedIn(false)
+                prefManager.clear()
+
 
                 // Start activity login
                 val intent = Intent(this@CrudMovie, MainActivity::class.java)
                 startActivity(intent)
-                finish()
+                finishAffinity()
             }
         }
 

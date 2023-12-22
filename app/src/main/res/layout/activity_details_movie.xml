@@ -2,6 +2,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/navy"
     android:layout_height="match_parent">
 
     <LinearLayout
@@ -24,7 +25,7 @@
             android:layout_marginStart="16dp"
             android:fontFamily="@font/poppinsemibold"
             android:text="SONIC THE HEDGEHOG"
-            android:textColor="@color/navy"
+            android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -69,7 +70,7 @@
             android:layout_marginStart="16dp"
             android:fontFamily="@font/poppinsemibold"
             android:text="Action/Movie/Comedy"
-            android:textColor="@color/navy"
+            android:textColor="@color/white"
             android:textSize="16sp" />
 
         <TextView
@@ -81,7 +82,7 @@
             android:layout_marginEnd="16dp"
             android:fontFamily="@font/poppinsregular"
             android:text="Sonic, seekor landak biru ekstraterestrial yang dapat berlari dengan kecepatan supersonik, mendapati dirinya dicari oleh suku echidnas untuk kekuasaannya. Pengawalnya, Longclaw the Owl, memberinya sekantong cincin yang dapat membuat portal ke planet lain, menggunakan satu untuk mengirimnya ke Bumi sementara dia melindunginya dari echidnas"
-            android:textColor="@color/navy"
+            android:textColor="@color/white"
             android:textSize="16sp"
             android:textAlignment="viewStart" />
 
@@ -93,10 +94,10 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="20dp"
             android:background="@drawable/shape"
-            android:backgroundTint="@color/navy"
+            android:backgroundTint="@color/emas"
             android:text="BACK TO HOME"
-            android:textColor="@color/white"
-            android:textSize="10sp"
+            android:textColor="@color/navy"
+            android:textSize="14sp"
             android:layout_gravity="center_horizontal"
             tools:ignore="RtlHardcoded" />
     </LinearLayout>

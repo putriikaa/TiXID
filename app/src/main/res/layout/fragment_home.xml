@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/navy"
     android:layout_height="match_parent"
     tools:context=".Home">
 
@@ -10,57 +11,54 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <RelativeLayout
+        <!-- Use LinearLayout with vertical orientation -->
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/hello"
-                android:layout_width="wrap_content"
+            <!-- Hello and Username side by side -->
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/poppin"
-                android:text="Hello,"
-                android:layout_marginTop="40dp"
-                android:layout_marginLeft="20dp"
-                android:textSize="16sp" />
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/your_usn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:fontFamily="@font/poppin"
-                android:layout_marginTop="2dp"
-                android:text="Username"
-                android:textColor="@color/blue"
-                android:layout_below="@+id/hello"
-                android:textSize="16sp" />
+                <TextView
+                    android:id="@+id/hello"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppin"
+                    android:text="Hello,"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginStart="20dp"
+                    android:textSize="16sp" />
 
-            <TextView
-                android:id="@+id/top_movie"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:fontFamily="@font/poppin"
-                android:layout_marginTop="50dp"
-                android:text="Top Movie"
-                android:textColor="@color/black"
-                android:layout_below="@+id/hello"
-                android:textSize="16sp" />
+                <TextView
+                    android:id="@+id/your_usn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:fontFamily="@font/poppin"
+                    android:layout_marginTop="20dp"
+                    android:text="Username"
+                    android:textColor="@color/emas"
+                    android:textSize="16sp" />
+            </LinearLayout>
 
+            <!-- Use GridLayout for Top Movie section -->
             <GridLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/your_usn"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="50dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
                 android:layout_marginBottom="30dp"
                 android:columnCount="2"
                 android:columnOrderPreserved="false"
                 android:rowCount="3">
 
+                <!-- First Column -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -72,7 +70,7 @@
                         android:textSize="25sp"
                         android:text="TOP MOVIE"
                         android:fontFamily="@font/poppinsemibold"
-                        android:textColor="#05299E"
+                        android:textColor="@color/white"
                         android:textAlignment="center"
                         android:layout_marginTop="20dp"
                         android:layout_marginBottom="20dp"
@@ -81,9 +79,16 @@
                     <!-- Use the RecyclerView instead of the previous CardView -->
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recyclerViewMovies"
-                        tools:listitem="@layout/list_movie_users"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:paddingTop="10dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                        app:spanCount="2"
+                        tools:itemCount="4"
+                        tools:listitem="@layout/list_movie_users" />
+
                 </LinearLayout>
 
                 <!-- Second Column -->
@@ -102,6 +107,6 @@
                         android:padding="10dp"/>
                 </LinearLayout>
             </GridLayout>
-        </RelativeLayout>
+        </LinearLayout>
     </ScrollView>
 </FrameLayout>

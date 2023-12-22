@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.example.uas.database.Movie
 import com.google.firebase.firestore.CollectionReference
 
 class UserAdapter (private val itemList : ArrayList<Movie>, private val movieadminCollectionRef: CollectionReference) : RecyclerView.Adapter<UserAdapter.MyViewHolder>() {
@@ -30,8 +31,6 @@ class UserAdapter (private val itemList : ArrayList<Movie>, private val movieadm
             // Load and display the image using Glide
             Glide.with(holder.itemView.context)
                 .load(currentItem.url)
-                .skipMemoryCache(true) // Skip caching in memory
-                .diskCacheStrategy(DiskCacheStrategy.NONE) // Skip caching on disk
                 .into(holder.image)
 
             holder.itemView.setOnClickListener{

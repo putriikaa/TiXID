@@ -26,6 +26,7 @@
         android:background="@drawable/shape"
         android:fontFamily="@font/poppin"
         android:textSize="14sp"
+        android:textColor="@color/navy"
         android:backgroundTint="#EDEDED"
         android:paddingStart="30dp"
         android:hint="Email" />
@@ -39,6 +40,7 @@
         android:background="@drawable/shape"
         android:fontFamily="@font/poppin"
         android:textSize="14sp"
+        android:textColor="@color/navy"
         android:backgroundTint="#EDEDED"
         android:paddingStart="30dp"
         android:hint="Username" />
@@ -53,6 +55,7 @@
         android:textSize="14sp"
         android:background="@drawable/shape"
         android:backgroundTint="#EDEDED"
+        android:textColor="@color/navy"
         android:paddingStart="30dp"
         android:inputType="textPassword"
         android:hint="Password"/>
